@@ -1,10 +1,19 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.ClassStanding;
 import model.Student;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by robertwaters on 9/4/16.
@@ -23,6 +32,9 @@ public class StudentEditController {
     @FXML
     private TextField majorField;
 
+    @FXML
+    private ComboBox<String> standingBox;
+
     /** the window for this dialog */
     private Stage _dialogStage;
 
@@ -35,8 +47,16 @@ public class StudentEditController {
     /**
      * called automatically after load
      */
+    @FXML
     private void initialize() {
+        List<String> standings = new ArrayList<>();
+        System.out.println(Arrays.toString(ClassStanding.values()));
+        for (ClassStanding c : ClassStanding.values()) {
+            standings.add(c.toString());
+        }
+        ObservableList<String>comboOptions = FXCollections.observableList(standings);
 
+        standingBox.setItems(comboOptions);
     }
 
     /**
@@ -62,7 +82,7 @@ public class StudentEditController {
         //make the data show up in the gui fields
         nameField.setText(_student.getName());
         majorField.setText(_student.getMajor());
-
+        standingBox.setValue(_student.getStanding());
     }
 
     /**
@@ -84,6 +104,7 @@ public class StudentEditController {
             //if the data is reasonable, then remember the the student data in the window
             _student.setName(nameField.getText());
             _student.setMajor(majorField.getText());
+            _student.setStanding(standingBox.getValue());
 
             //signal success and close this dialog window.
             _okClicked = true;
