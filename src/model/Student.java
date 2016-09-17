@@ -20,6 +20,7 @@ public class Student {
      */
     private final StringProperty _name = new SimpleStringProperty();
     private final StringProperty _major = new SimpleStringProperty();
+    private final StringProperty _standing = new SimpleStringProperty();
 
     /* **********************
      * Getters and setters for properties
@@ -27,8 +28,11 @@ public class Student {
     public String getName() { return _name.get(); }
     public void setName(String name) { _name.set(name); }
 
-    public String getMajor() {return _major.get(); }
+    public String getMajor() { return _major.get(); }
     public void setMajor(String major) { _major.set(major); }
+
+    public String getStanding() { return _standing.get(); }
+    public void setStanding(String standing) { _standing.set(standing); }
 
     /**
      * Make a new student
@@ -38,6 +42,19 @@ public class Student {
     public Student(String name, String major) {
         _name.set(name);
         _major.set(major);
+        _standing.set(ClassStanding.FR.getStanding());
+    }
+
+    /**
+     * Make a new student with Standing
+     * @param name      the student's name
+     * @param major     the student's major
+     * @param standing  the student's standing
+     */
+    public Student(String name, String major, String standing) {
+        _name.set(name);
+        _major.set(major);
+        _standing.set(standing);
     }
 
     /**
@@ -47,6 +64,7 @@ public class Student {
     public Student() {
         _name.set("enter new name");
         _major.set("enter new major");
+        _standing.set("enter new standing");
     }
 
     /**
@@ -54,7 +72,9 @@ public class Student {
      * @return the display string representation
      */
     public String toString() {
-        return _name.get() + " " + _major.get();
+        return _name.get() + " "
+             + _major.get() + " "
+             + _standing.get();
     }
 
 }
